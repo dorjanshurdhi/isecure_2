@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
@@ -15,7 +16,7 @@
         android:theme="@style/Theme.ISecure"
         tools:targetApi="31">
         <activity
-            android:name="com.cindytech.isecure.main.Settings"
+            android:name="com.cindytech.isecure.settings.Settings"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

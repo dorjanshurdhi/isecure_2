@@ -62,7 +62,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         // and we are comparing it with name of our course which is stored in original name variable.
 
         @SuppressLint("SimpleDateFormat") String currentTime = new SimpleDateFormat("HH:mm").format(new Date());
-        Log.d("koha", currentTime);
+        String time = "TIME " +currentTime;
+        Log.d("koha", time);
 
         /*
          on below line we are passing all values
@@ -77,7 +78,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_MODEL_STATUS, model.getStatus());
         cv.put(COLUMN_MODEL_ENABLE, model.getEnable());
         cv.put(COLUMN_MODEL_DISABLE, model.getDisable());
-        cv.put(COLUMN_MODEL_TIME, currentTime);
+        cv.put(COLUMN_MODEL_TIME, time);
         cv.put(COLUMN_MODEL_PASSWORD, model.getPassword());
 
         String ID = "1";

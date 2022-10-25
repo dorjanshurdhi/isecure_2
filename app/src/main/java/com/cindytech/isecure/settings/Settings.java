@@ -1,4 +1,4 @@
-package com.cindytech.isecure.main;
+package com.cindytech.isecure.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cindytech.isecure.database.DataBaseHelper;
+import com.cindytech.isecure.main.MainActivity;
 import com.cindytech.isecure.model.Model;
 import com.example.isecure.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Settings extends AppCompatActivity {
 
@@ -22,6 +24,8 @@ public class Settings extends AppCompatActivity {
     Button btn_save;
     EditText et_number, et_arm, et_disarm, et_night, et_day, et_status, et_enable, et_disable, et_time, et_password;
     DataBaseHelper dataBaseHelper = new DataBaseHelper(Settings.this);
+    BottomNavigationView bnv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,9 +111,10 @@ public class Settings extends AppCompatActivity {
                     if (dataBaseHelper.firstLogin()==true) {
                         dataBaseHelper.addOne(model);
                         Toast.makeText(Settings.this, model.toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Settings.this, "TAN RRESHKA", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Settings.this, "Saved", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(Settings.this, "DB IS NOT EMPTY", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Settings.this, "Updated", Toast.LENGTH_LONG).show();
+                        dataBaseHelper.updateModel(model);
                     }
                 } catch (Exception e){
                     Toast.makeText(Settings.this, "ERROR CREATING MODEL", Toast.LENGTH_SHORT).show();
@@ -117,15 +122,31 @@ public class Settings extends AppCompatActivity {
                 }
 
                 //boolean success = dataBaseHelper.addOne(model);
-                dataBaseHelper.updateModel(model);
-                Toast.makeText(Settings.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                turnBack();
+                //dataBaseHelper.updateModel(model);
+                //Toast.makeText(Settings.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                goToHome();
+
+                bnv = findViewById(R.id.bottomNavigationView);
+                bnv.setOnItemSelectedListener(item -> {
+
+                    switch (item.getItemId()){
+                        case R.id.home:
+                            goToHome();
+                            break;
+                        case R.id.profile:
+                            break;
+                        case R.id.settings:
+                            //goSetting();
+                            break;
+                    }
+                    return true;
+                });
             }
         });
     }
 
 
-    public void turnBack(){
+    public void goToHome(){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
